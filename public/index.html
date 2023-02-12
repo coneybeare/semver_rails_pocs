@@ -1,0 +1,111 @@
+<div>
+  <h2><a href="http://localhost:3000/api/approach_a/1.2.3/things/123">Approach A</a></h2>
+  <p>Interactor handles versioning, calls different components based on passed version.</p>
+  <ul>
+    <li>PRO: Versioning comparison and delegation happens only 1 place</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>CON: Need multiple component files for all new versions.</li>
+    <li>CON: Minor changes require full file definitions.</li>
+    <li>CON: Interactor itself cannot be versioned easily.</li>
+    <li>CON: Breaks SOLID principles.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_b/1.2.3/things/123">Approach B</a></h2>
+  <p>All components handle versioning, execute different logic based on passed version.</p>
+  <p>Uses internal <code>version</code> considerations to execute different logic</p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Single component file entry point for all versions.</li>
+    <li>PRO: Versioning is done in the instantiated class, so public call does not have to change.</li>
+    <li>PRO: Minor changes implemented with dry code.</li>
+    <li>CON: Need multiple methods and logic per versioned component</li>
+    <li>CON: When many many versions, internal method logic might be tough to follow withing the class.</li>
+    <li>CON: Breaks SOLID principles.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_c/1.2.3/things/123">Approach C</a></h2>
+  <p>All components handle versioning, call different private classes internally based on passed version.</p>
+  <p>Uses metaprograming on <code>new</code></p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Single component file entry point for all versions.</li>
+    <li>PRO: Versioned components are determined internally, which still allows for a nice public call that does not change.</li>
+    <li>PRO: Minor changes implemented with dry code and inheritance.</li>
+    <li>CON: Breaks the ruby convention of 1 class per file.</li>
+    <li>CON: Breaks LSP</li>
+    <li>CON: When many versions, separated inherited class logic might be tough to follow through files.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_d/1.2.3/things/123">Approach D</a></h2>
+  <p>All components handle versioning, call different namespaced classes externally based on passed version.</p>
+  <p>Uses metaprograming on <code>new</code></p>
+  <p>(Same as C but with separate files per class)</p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Versioned components are determined internally, which still allows for a nice public call that does not change.</li>
+    <li>PRO: Sticks to the ruby convention of 1 class per file.</li>
+    <li>PRO: Minor changes implemented with dry code.</li>
+    <li>CON: Breaks LSP</li>
+    <li>CON: Entrypoint is just a blank version handler.</li>
+    <li>CON: When many versions, separated inherited class logic might be tough to follow through files.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_e/1.2.3/things/123">Approach E</a></h2>
+  <p>All components handle versioning, call pass through inheritance chains in same file to different logic.</p>
+  <p>New versions are inserted in inheritance chain, public class is a pass through to ensure external api consistency</p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Single component file entry point for all versions.</li>
+    <li>PRO: Versioned components are determined internally, which still allows for a nice public call that does not change.</li>
+    <li>PRO: Sticks to LSP</li>
+    <li>CON: Breaks the ruby convention of 1 class per file.</li>
+    <li>CON: When many versions, separated inherited class logic might be tough to follow through files.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_f/1.2.3/things/123">Approach F</a></h2>
+  <p>All components handle versioning, call pass through inheritance chains in different files to different logic.</p>
+  <p>New versions are inserted in inheritance chain, public class is a pass through to ensure external api consistency</p>
+  <p>(Same as F but with separate files per class)</p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Single component file entry point for all versions.</li>
+    <li>PRO: Versioned components are determined internally, which still allows for a nice public call that does not change.</li>
+    <li>PRO: Sticks to LSP</li>
+    <li>PRO: Keeps the ruby convention of 1 class per file.</li>
+    <li>CON: Entrypoint (Head) is just a pointer class.</li>
+    <li>CON: When many versions, separated inherited class logic might be tough to follow through files.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_g/1.2.3/things/123">Approach G</a></h2>
+  <p>All components handle versioning, call pass through inheritance chains in different files to different logic.</p>
+  <p>New versions are inserted in inheritance chain, public class is a pass through to ensure external api consistency</p>
+  <p>Version handling is not needed within the code itself, wrapped by included module. Only definition needed.</p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Single component file entry point for all versions.</li>
+    <li>PRO: Versioned components are defined internally, which still allows for a nice public call that does not change.</li>
+    <li>PRO: Versioning support is handled in modules, which allows for cleaner code.</li>
+    <li>PRO: Sticks to LSP</li>
+    <li>PRO: Keeps the ruby convention of 1 class per file.</li>
+    <li>CON: Entrypoint (Head) is just a pointer class.</li>
+    <li>CON: When many versions, separated inherited class logic might be tough to follow through files.</li>
+  </ul>
+</div>
