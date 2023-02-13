@@ -104,8 +104,25 @@
     <li>PRO: Versioned components are defined internally, which still allows for a nice public call that does not change.</li>
     <li>PRO: Versioning support is handled in modules, which allows for cleaner code.</li>
     <li>PRO: Sticks to LSP</li>
+    <li>CON: Breaks the ruby convention of 1 class per file.</li>
+    <li>CON: When many versions, separated inherited class logic might be tough to follow through classes.</li>
+  </ul>
+</div>
+
+<div>
+  <h2><a href="http://localhost:3000/api/approach_h/1.2.3/things/123">Approach H</a></h2>
+  <p>All components handle versioning, call pass through inheritance chains in different files to different logic.</p>
+  <p>New versions are inserted in inheritance chain, public class is a pass through to ensure external api consistency</p>
+  <p>Version handling is not needed within the code itself, wrapped by included module. Only definition needed.</p>
+  <p>(Same as G but with separate files per class)</p>
+  <ul>
+    <li>PRO: Versioning comparison is done independently, localized to where the changes are.</li>
+    <li>PRO: Translation from semver to module name is not necessary.</li>
+    <li>PRO: Single component file entry point for all versions.</li>
+    <li>PRO: Versioned components are defined internally, which still allows for a nice public call that does not change.</li>
+    <li>PRO: Versioning support is handled in modules, which allows for cleaner code.</li>
+    <li>PRO: Sticks to LSP</li>
     <li>PRO: Keeps the ruby convention of 1 class per file.</li>
-    <li>CON: Entrypoint (Head) is just a pointer class.</li>
     <li>CON: When many versions, separated inherited class logic might be tough to follow through files.</li>
   </ul>
 </div>

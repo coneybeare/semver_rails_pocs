@@ -36,5 +36,11 @@ Rails.application.routes.draw do
         get '/things/:id', to: 'things#show'
       end
     end
+
+    namespace :approach_h do
+      scope ':version', constraints: { version: SemVerRegexp } do
+        get '/things/:id', to: 'things#show'
+      end
+    end
   end
 end
